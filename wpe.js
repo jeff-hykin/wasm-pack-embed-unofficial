@@ -4,6 +4,8 @@ import { binaryify } from "https://deno.land/x/binaryify@2.5.5.0/binaryify_api.j
 import { convertUint8ArrayToBase64String } from "https://esm.sh/gh/jeff-hykin/good-js@1.18.0.0/source/flattened/convert_uint8_array_to_base64_string.js"
 import { parseArgs, flag, required, initialValue } from "https://esm.sh/gh/jeff-hykin/good-js@1.18.0.0/source/flattened/parse_args.js"
 import { didYouMean } from "https://esm.sh/gh/jeff-hykin/good-js@1.18.0.0/source/flattened/did_you_mean.js"
+import { normalizePath } from "https://esm.sh/gh/jeff-hykin/good-js@d85276f/source/flattened/normalize_path.js"
+
 // need to import this bundled code to properly convert base64 string back to a uint8array
 import stringForConvertBase64StringToUint8ArrayJs from "./convert_base64_string_to_uint8_array.js.binaryified.js"
 
@@ -18,6 +20,7 @@ const output = parseArgs({
         [["--wasm-in-js-name"], initialValue(`wasm_bytes.js`),],
         [["--wasm-source-path"], initialValue(null),],
         [["--js-source-path"], initialValue(null),],
+        [["--silent"], flag,],
     ],
     namedArgsStopper: "--",
     allowNameRepeats: true,
@@ -33,7 +36,7 @@ didYouMean({
     suggestionLimit: 1,
 })
 
-var { help, version, outputFormat, outputFolder, mainFileName, wasmInJsName, wasmSourcePath, jsSourcePath } = output.explicitArgsByName
+var { help, version, silent, outputFormat, outputFolder, mainFileName, wasmInJsName, wasmSourcePath, jsSourcePath } = output.explicitArgsByName
 const helpForOutputFormats = `
     - ${cyan`utf8-string`}: this is the most compressed (faster load, smaller bundle)
         but uses some CPU to convert the string back to a Uint8Array
@@ -139,3 +142,15 @@ wasmPack.initSync({module:wasmBytes})
 export default wasmPack
 `,
 })
+let mainOutputPath = normalizePath(`${outputFolder}/${mainFileName}`, { forcePrefix: true })
+if (!silent) {
+    console.log(`
+        ${cyan`Success!`}
+        
+        You can now import the wasm file into your project like this:
+        
+        import { yourWasmFunc } from ${JSON.stringify(mainOutputPath)}
+        // no need to call initSync, it's done already
+        yourWasmFunc("World")
+    `)
+}
