@@ -15,7 +15,7 @@ const output = parseArgs({
         [["--help"], flag ],
         [["--version"], flag ],
         [["--output-format"], initialValue(`utf8-string`), ],
-        [["--output-folder"], initialValue(`${FileSystem.pwd}/pkg`),],
+        [["--output-folder"], initialValue(`./pkg`),],
         [["--main-file-name"], initialValue(`main_embedded.js`),],
         [["--wasm-in-js-name"], initialValue(`wasm_bytes.js`),],
         [["--wasm-source-path"], initialValue(null),],
