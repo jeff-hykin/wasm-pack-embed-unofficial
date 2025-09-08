@@ -147,11 +147,11 @@ if (!silent) {
     console.log(`
         ${cyan`Success!`}
         
-        You can now import the wasm file into your project like this:
+        You can import the wasm file into your project like this:
         
         ${cyan`import`} { ${yellow`yourWasmFunc`} } ${cyan`from`} ${green(JSON.stringify(mainOutputPath))}
         // no need to call initSync, it's done already
         ${yellow`yourWasmFunc`}("World")
-    `)
+    `.replace(/\n        /g, "\n"))
     console.log(``)
 }
