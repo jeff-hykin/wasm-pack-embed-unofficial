@@ -8,7 +8,7 @@ This is a little tool for wasm-pack that helps embed the wasm file into an easil
 # install deno (if you don't have it)
 curl -fsSL https://deno.land/install.sh | sh
 # install this tool (wpe)
-deno install -n wpe -Afg https://esm.sh/gh/jeff-hykin/wasm-pack-embed-unofficial@1.0.0.1/wpe.js
+deno install -n wpe -Afg https://esm.sh/gh/jeff-hykin/wasm-pack-embed-unofficial@1.0.0.2/wpe.js
 # call wasm-pack and wpe
 wasm-pack build --target web && wpe --output-folder ./pkg
 ```
