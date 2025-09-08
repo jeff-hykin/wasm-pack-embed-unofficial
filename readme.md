@@ -37,10 +37,13 @@ wpe --output-format utf8-string
 wpe --output-format base64-string
 wpe --output-format inlined-array
 
-wpe --main-file-name my_main.js
-
 wpe --output-folder ./pkg
 # Note: output folder needs to contain the output of wasm-pack build --target web
+
+wpe --silent
+# avoids printing the success message
+            
+wpe --main-file-name my_main.js
 
 wpe --wasm-in-js-name wasm_as_uint8array.js
 ```
