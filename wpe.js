@@ -63,6 +63,9 @@ if (help) {
             ${cyan`wpe`} --output-format base64-string
             ${cyan`wpe`} --output-format inlined-array
             
+            ${cyan`wpe`} --silent
+            # avoids printing the success message
+            
             ${cyan`wpe`} --main-file-name my_main.js
             
             ${cyan`wpe`} --output-folder ./pkg
