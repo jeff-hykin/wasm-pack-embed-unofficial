@@ -1,5 +1,5 @@
 import { FileSystem } from "https://deno.land/x/quickr@0.8.1/main/file_system.js"
-import { Console, cyan, yellow } from "https://deno.land/x/quickr@0.8.1/main/console.js"
+import { Console, cyan, yellow, green } from "https://deno.land/x/quickr@0.8.1/main/console.js"
 import { binaryify } from "https://deno.land/x/binaryify@2.5.5.0/binaryify_api.js"
 import { convertUint8ArrayToBase64String } from "https://esm.sh/gh/jeff-hykin/good-js@1.18.0.0/source/flattened/convert_uint8_array_to_base64_string.js"
 import { parseArgs, flag, required, initialValue } from "https://esm.sh/gh/jeff-hykin/good-js@1.18.0.0/source/flattened/parse_args.js"
@@ -149,8 +149,9 @@ if (!silent) {
         
         You can now import the wasm file into your project like this:
         
-        import { yourWasmFunc } from ${JSON.stringify(mainOutputPath)}
+        ${cyan`import`} { ${yellow`yourWasmFunc`} } ${cyan`from`} ${green(JSON.stringify(mainOutputPath))}
         // no need to call initSync, it's done already
-        yourWasmFunc("World")
+        ${yellow`yourWasmFunc`}("World")
     `)
+    console.log(``)
 }
