@@ -14,7 +14,7 @@ const output = parseArgs({
         [["--version"], flag ],
         [["--output-format"], initialValue(`utf8-string`), ],
         [["--output-folder"], initialValue(`${FileSystem.pwd}/pkg`),],
-        [["--main-file-name"], initialValue(`main.js`),],
+        [["--main-file-name"], initialValue(`main_embedded.js`),],
         [["--wasm-in-js-name"], initialValue(`wasm_bytes.js`),],
         [["--wasm-source-path"], initialValue(null),],
         [["--js-source-path"], initialValue(null),],
@@ -134,6 +134,7 @@ await FileSystem.write({
     path: `${outputFolder}/${mainFileName}`,
     data: `import wasmBytes from ${JSON.stringify(`./${FileSystem.normalizePath(wasmInJsName)}`)}
 import * as wasmPack from ${JSON.stringify(`./${FileSystem.normalizePath(jsSourceRelativePath)}`)}
+export * from ${JSON.stringify(`./${FileSystem.normalizePath(jsSourceRelativePath)}`)}
 wasmPack.initSync({module:wasmBytes})
 export default wasmPack
 `,
