@@ -123,7 +123,7 @@ if (outputFormat === `inlined-array`) {
     const wasmBytesBase64 = convertUint8ArrayToBase64String(wasmBytes)
     await FileSystem.write({
         path: `${outputFolder}/${wasmInJsName}`,
-        data: `${stringForConvertBase64StringToUint8ArrayJs}\nexport default convertBase64StringToUint8Array(${JSON.stringify(wasmBytesBase64)})`,
+        data: `${stringForConvertBase64StringToUint8ArrayJs}\nexport default convertBase64StringToUint8Array("${wasmBytesBase64}")`,
     })
 } else {
     await binaryify({
