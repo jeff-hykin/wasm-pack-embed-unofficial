@@ -79,7 +79,7 @@ if (help) {
     Deno.exit(0)
 }
 if (version) {
-    console.log(`v1.0.0.3`)
+    console.log(`v1.0.0.6`)
     Deno.exit(0)
 }
 const validOutputFormats = [`utf8-string`, `base64-string`, `inlined-array`]
@@ -110,13 +110,12 @@ if (!jsSourcePath) {
 }
 
 // create the wasm-in-js file
-if (outputFormat === `base64-string`) {
+if (outputFormat === `inlined-array`) {
     const wasmBytes = await FileSystem.read(wasmSourcePath)
     // btoa is problematic for non-string inputs so we have to convert to base64 string manually :(
-    const wasmBytesBase64 = convertUint8ArrayToBase64String(wasmBytes)
     await FileSystem.write({
         path: `${outputFolder}/${wasmInJsName}`,
-        data: `export default ${wasmBytesBase64.toString()}`,
+        data: `export default ${wasmBytes.toString()}`,
     })
 } else if (outputFormat === `base64-string`) {
     const wasmBytes = await FileSystem.read(wasmSourcePath)
