@@ -79,7 +79,7 @@ if (help) {
     Deno.exit(0)
 }
 if (version) {
-    console.log(`v1.0.0.6`)
+    console.log(`v1.0.0.7`)
     Deno.exit(0)
 }
 const validOutputFormats = [`utf8-string`, `base64-string`, `inlined-array`]
