@@ -1,4 +1,4 @@
-// https://esm.sh/gh/jeff-hykin/good-js@e5ded4a/denonext/source/flattened/convert_base64_string_to_uint8_array.development.mjs
+// https://esm.sh/gh/jeff-hykin/good-js@f5e1ea7/denonext/source/flattened/convert_base64_string_to_uint8_array.development.mjs
 var _base64NumericCodes = [
   255,
   255,
@@ -134,7 +134,7 @@ function _getBase64Code(charCode) {
   }
   return code;
 }
-function convertBase64StringToUint8Array(str) {
+var convertBase64StringToUint8Array = Uint8Array.fromBase64 || function(str) {
   if (str.length % 4 !== 0) {
     throw new Error("Unable to parse base64 string.");
   }
@@ -150,7 +150,7 @@ function convertBase64StringToUint8Array(str) {
     result[j + 2] = buffer & 255;
   }
   return result.subarray(0, result.length - missingOctets);
-}
+};
 export {
   convertBase64StringToUint8Array
 };
