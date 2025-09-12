@@ -15,14 +15,18 @@ deno install -n wpe -Afg https://esm.sh/gh/jeff-hykin/wasm-pack-embed-unofficial
 wasm-pack build --target web && wpe --output-folder ./pkg
 ```
 
-Where ever you want to use the module, you can do: 
+There will be two extra files in the ./pkg
+1. `wasm_bytes.js` which is only the wasm embedded into js
+2. `main_embedded.js` which auto-loads wasm_bytes.js and re-exports everything from your main.js file
+
+Example of using `main_embedded.js`:
 ```js
 import { someWasmFunc, greet } from "./pkg/main_embedded.js"
 // no need to call initSync, it's done already
 greet("World")
 ```
 
-Or, if you want to load it yourself, you can do:
+If you want to load it yourself, you can do:
 ```js
 import wasmAsUtf8Array from "./pkg/wasm_bytes.js"
 // manually load it into the wasm-pack module
